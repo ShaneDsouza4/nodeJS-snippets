@@ -1,0 +1,12 @@
+
+6/18/2024, 7:49:37 PM: /shop?name=shane new Request received.
+6/18/2024, 7:50:32 PM: /shop?name=shane&userID=1 new Request received.
+6/18/2024, 7:51:43 PM: /shop?name=shane&userID=1 new Request received.
+6/18/2024, 7:52:16 PM: /about?name=shane&userID=1 new Request received.
+6/18/2024, 7:53:03 PM: /about?name=shane&userID=1 new Request received.
+6/18/2024, 7:55:17 PM: /about?name=shane&userID=1 new Request received.
+6/18/2024, 7:55:54 PM: /about?name=sethh&userID=1 new Request received.
+6/18/2024, 7:57:39 PM: /about?name=shane+redd&userID=1 new Request received.
+6/18/2024, 8:16:16 PM: GET /about?name=shane+redd&userID=1 new Request received.
+6/18/2024, 8:20:08 PM: GET /about?name=shane+redd&userID=1 new Request received.
+6/18/2024, 8:20:17 PM: GET /signup new Request received.
