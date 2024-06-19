@@ -1,0 +1,39 @@
+- Important for Security purposes.
+- Dependency and version name is shown.
+- 3 digits.
+
+// Version
+4.18.2
+
+Part 1: 4
+Part 2: 18
+Part 3: 2
+
+- Part 3 (Last Part): Minor Fixes (Optional update).
+4.18.2 -> 4.18.3
+
+
+- Part 2: Recommended Bug Fix (Security Fix) 
+4.18.2 -> 4.19.3
+
+
+- Part 1: Major Update / Breaking Update
+4.18.2 -> 5.0.0
+Do not update. As existing app can break.
+Only use when new app is being created. Good to Go.
+Read document, to see changes then Update.
+
+*For Node JS Version in package.json
+Add space or change spelling the part 3 changes in node version.
+Add new API then part 2 changes in node version.
+
+
+^: Compatible with version
+express = ^4.18.2
+^: Don't change 4. Don't go to 5.0.0. Install all recommended and minor fixes automatically. Only update version compatible with 4.
+4th version 
+18 Major release
+2 Minor release
+
+~4.18.2
+Don't change the recommended version. Don't change to 4.19.0

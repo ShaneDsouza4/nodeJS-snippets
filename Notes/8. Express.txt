@@ -1,0 +1,21 @@
+> Express is a NodeJS framework. 
+- Allows us to write clean code.
+- Below the scenes uses http module and other packages, which we don't have to install and use separately.
+- Does the HTTP method handling, query parameter extraction, listening to the port and so on.
+
+> npm i express
+
+const express = require("express");
+
+const app = express();
+
+app.get('/', (req, res)=>{
+    return res.send("Home Page");
+})
+
+app.get('/about', (req, res)=>{
+    return res.send("About Page" + "\nWeclome " + req.query.name);
+})
+
+
+app.listen(8000, ()=>{console.log("Server Started!")} );

@@ -1,0 +1,64 @@
+> Restfull API
+- API type with Rules.
+
+> Client Server Communication
+- Client can be browser, mobile phone, alexa, and so on.
+- Client Send request to Server, 
+- In response Server returns a Response.
+- Best practices given by REST API must be followed for communication.
+
+> Used in industries.
+
+1. Server Client Architecture:
+	Server and Client are 2 different machines and shouldn't be dependent on each other.
+	Response can be text/ image/HTML doc/JSON etc. 
+
+GET was done for blogs
+Fetched from DB, made HTML document and sent as response.
+If client if browser, works well.
+If client is alexa device then, HTML document shouldn't be sent. Now client is dependent on the server, as HTML is rendered on the server.
+
+Data queried from the server.
+Sent as a JSON (key value pair).
+We now sent Raw Data and client will read it and render it on their own screen.
+
+Server sends in JSON.
+Client processes it and renders how it wants to.
+
+If we know client is browser, then we can send HTML to save time.
+
+
+2. Always Respect All HTTP Methods
+GET POST PUT PATCH DELETE
+
+GET /user -> User data read and return.
+POST /user -> Handle new user creation.
+PATCH /user -> Update the User.
+
+POST /updateUser -> Wrong practice Use PATCH
+POST /createUser -> Wrong name, can be understood from Method. 
+GET /getUser -> Wrong name, can be understood from Method.
+POST /deleteUser -> Wrong name and method use.
+
+
+res.send() / res.render() -> For HTML rendering, which is Fast. SSR is fast.
+res.json({....}) -> For Client side rendering, a bit slow. CSR is slow.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
