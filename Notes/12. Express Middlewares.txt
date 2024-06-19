@@ -1,0 +1,92 @@
+- Client makes GET request on /users
+- Express Server, has a function app.get('/users')
+Express determines which block of code to run.
+The block will send a Response and cycle ends.
+
+
+Client makes Request
+Request passes Middleware first (Middleman). Middleware is just a FUNCTION.
+Middleware does some processing, like checking who the request is coming from and so on.
+If Middleware thinks everything is good, the Request goes to the function app.get(...).
+If Middleware thinks something is wrongs, it goes back to the Client.
+
+Middleware is a function, that runs on all request response.
+Can have multiple middlewares, and passed on using next
+Chain of middlewares in a stack.
+
+> Can create own middleware.
+- Always use next() so that it can proceed further otherwise will be stuck.
+
+app.use((req, res, next) =>{
+    console.log("Hello from Middleware 1");
+    //return res.json({msg: "Hello from Middleware 1"});
+    next();
+})
+
+
+
+> Using middlewares to make changes to the Request and Response Object
+If new variable in middleware1 will be available to all middlewares including the Paths.
+app.use((req, res, next) =>{
+    console.log("Hello from Middleware 1");
+    req.myUsername = "ShaneDsouza4";
+    next();
+})
+
+app.use((req, res, next) =>{
+    console.log("Hello from Middleware 2", req.myUsername);
+    next();
+})
+
+//Rest API
+app.get("/api/users", (req, res)=>{
+    console.log("Hello from /api/users", req.myUsername);
+    return res.json(users);
+});
+
+
+
+- Can use to see current credit card numbers in DB and and then check for every route.
+app.use((req, res, next) =>{
+    console.log("Hello from Middleware 3");
+    //DB Query
+    //credit card info
+    req.creditCardNumber = 102323029302;
+    next();
+})
+
+
+
+- Can use a middleware to create logs
+
+app.use((req, res, next) =>{
+    fs.appendFile(
+        "log.txt",
+        `${Date.now()}: ${req.ip} ${req.method}: ${req.path}\n`,
+        (err, data) => {
+            next();
+        }
+    )
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

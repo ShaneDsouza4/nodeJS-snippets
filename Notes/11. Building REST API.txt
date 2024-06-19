@@ -1,0 +1,36 @@
+> npm init (When initializing new project)
+> index.js (For execution)
+
+- TO create REST API
+> npm i express
+
+- require express
+- create app which is express instance
+- create a port and listen to it.
+
+*JSON REST API to make;
+We want to make a Hybrid server, where mobile devs can also use.
+
+- GET /users - HTML Document Render - Done
+- GET /api/users - List all users - Done
+
+
+- GET /api/users/1 - Get user with ID 1  /api/users/:id (Using Dynamic Path Parameter) - Done
+- GET /api/users/2 - Get user with ID 2 - Done
+
+
+- POST /api/users - Create new user
+If do simple req.body will show undefined.
+Use a middleware, so that form data can be put in the body.
+app.use(express.urlencoded({extended:false})); //For www
+app.use(express.json()); //For JSON
+
+- PATCH /api/user/1 - Edit the user with ID 1
+- DELETE /api/users/1 - Delete the User with ID 1
+
+
+https://www.mockaroo.com/ to generate fake data.
+require the users JSON
+
+Think of middleware like a plugin.
+
