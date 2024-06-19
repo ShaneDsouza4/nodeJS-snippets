@@ -1,0 +1,22 @@
+> What is Nodejs?
+- Runtime environment for Js.
+- Explanation:
+	JS is a browser language, to make browsers interactive. JS runs in the browser's JS engine. 
+	Chrome's V8 engine was extract with C++ to talk to native machine, open files.
+	Webservers can now be created using JS.
+
+> Installation.
+- Nodejs.org > Download LTS > node --version > Open Node Terminal by typing node.
+
+> Browsers events
+- Alert, window and many browser features won't work.
+- Similarly file handling won't work on browsers.
+
+> When making a new project:
+- npm init (THis creates package.json which is a configuration file)
+- package.json: Can create scripts and install dependencies.
+
+- To run: npm index.js 
+- Running with a script: 
+	Can run using a script by setting in package.json: "youtube":"node index.js" (Can name anything we want)
+	Now: npm youtube

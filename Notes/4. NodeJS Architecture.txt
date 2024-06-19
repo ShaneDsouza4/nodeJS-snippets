@@ -1,0 +1,31 @@
+- NodeJS Architecture
+
+- Involves: 
+1. Client.
+2. Event Queue.
+3. Event Loop.
+4. Thread Pool.
+
+Client makes request to server made in NodeJS.
+Request comes in our NodeJS server.
+Requests are first queued in the EventQueue.
+Requests from the EventQueue go in the Event Loop.
+EventLoop is a machine that always watches the EventQueue for Events to pick in FIFO principle.
+Eventloop checks if Requests are Blocking(SYNC) or Non Blocking(ASYNC)
+If non blocking, processes and sends response to Client. 
+If blocking, to resolve the request is sent to the THREAD POOL, that it needs a Thread(Worker). If any workers are free, they are assigned the task, complete it, return the result to the Event Loop and go back to the Thread Pool. The result will then be sent to the Client.
+
+By default there are 4 workers.
+5th user will have to wait, till any worker is free.
+Scalability issues, when write code with BLOCKING CODE (SYNCHRONOUS)
+Always use Asynchronous.
+
+Both work the same.
+Execution run Top to Bottom when using SYNC. Waits till SYNC task is completed.
+
+Default Thread Pool Size: 4.
+Depending on CPU cores on the servers we buy: 8core CPU - 8 workers.
+
+- To get information of your OS
+const os = require("os");
+console.log(os.cpus().length);

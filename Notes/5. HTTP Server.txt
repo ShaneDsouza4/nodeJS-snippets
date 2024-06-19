@@ -1,0 +1,6 @@
+- Creating an API server
+use the built-in http module to create a server.
+Use the requestListener to process incoming requests. Will get all the client meta data.
+server listens on a port.
+
+

@@ -1,0 +1,10 @@
+GET: Get some data from the server
+
+POST: Send and mutate data in server. 
+	Example: Forms data filled and added in the Database.
+
+PUT: Uploads.
+
+PATCH: Update.
+
+DELETE: Delete something.

@@ -1,0 +1,7 @@
+> Modules:
+- Codebased divided into chunks is called modules. Function created in File A, use in File B. 
+- Use require and export built-in function.
+
+module.exports allows multiple functions
+exports.add = (a, b) => return a+b; //Add is a feature not a function name.
+require is same as #include

@@ -1,0 +1,52 @@
+Uniform Resource Locator
+
+1. Protocol: https
+Hyper Text Transfer Protocol Secure
+Gives rules to the browser, on how to communicate. 
+S: Encrypted more secure.
+WS: For web sockets.
+
+2. Domain: www.shanedsouza.com
+User friendly name of IP Address.
+Domain pointed to IP Address.
+
+In terminal:
+	> ping shanedsouza.com (Can use the IP Address to visit the website)
+
+3. Path: /
+- Simple path means Root or Home path.
+- Paths can be nested: /project/2
+
+- Query Parameters
+Key Value 
+Start after the ?
+Extra Info passed with URL
+
+/about?userID=1&a=2
+ 
+After ? is called Query parameters which are sent to the server
+Parameter 1: UserID = 1 
+Parameter 2: a = 2
+
+
+https://www.google.com/search?q=javascript+interview+questions&rlz=1C1VDKB_enPK1090PK1090&oq=javascript+inter&gs_lcrp=EgZjaHJvbWUqCggAEAAYsQMYgAQyCggAEAAYsQMYgAQyBggBEEUYOTIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIHCAUQABiABDIHCAYQABiABDIHCAcQABiABDIHCAgQABiABDIHCAkQABiABNIBCDM3NDJqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
+
+Domain: Google.com
+Path: /search
+Query Parameter 1: q=javascript+interview+questions (q means query, + means spaces)
+Query Parameter 2: rlz=1C1VDKB_enPK1090PK1090
+Query Parameter 3: oq=javascript+inter 
+and so on.
+
+- Use external package to extract query parameter
+npm i url
+const myUrl = url.parse(req.url, true);
+
+Run: http://localhost:9000/shop?name=shane&userID=1
+
+
+
+
+
+
+

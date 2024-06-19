@@ -1,0 +1,40 @@
+> File Handling
+fs (File System) module is in-built to interact with Files.
+Synchronous task return results.
+Async task does not return. Hence, expects callback functions.
+
+- Create file with text (Synchronously)
+fs.writeFileSync("./test.txt", "Hey There");
+
+- Create file with text (Asynchronously).
+fs.writeFile("./test.txt", "Hey There", (err)=>{});
+
+
+- Read file (sync)
+const result =  fs.readFileSync("./contacts.txt", "utf-8");
+utf-8 allows to decode the file.
+
+- Read file (sync)
+fs.readFile("./contacts.txt", "utf-8", (err, result)=> {
+	if(err){...}
+	else{....}
+});
+
+- Append File
+Will not overwrite the file.
+Adding logs to a file.
+fs.appendFileSync("./userLogs.txt", `${Date.now()} User loggedin` );
+
+
+- Copy File
+fs.cpSync("./text.txt", "./copy.txt");
+
+- Delete File
+fs.unlinkSync("./copy.txt");
+
+- Check statistics
+fs.statSync("./test.txt")
+
+- Make Directory
+fs.mkdirSYnc("my-docs");
+fs.mkdirSYnc("my-docs/a/b", {recursive:true});
