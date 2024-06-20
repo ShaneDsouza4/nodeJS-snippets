@@ -1,0 +1,159 @@
+Made of 3 components
+1. Model
+2. View
+3. Controller
+
+> Flow
+Controller manipulates the Model. Model updates the View.
+
+A lot of code in index.js
+Maintainability issues
+Needs to be refactored
+
+
+Folder "models"
+Folder "controllers"
+Folder "routes"
+Folder "views"
+
+
+**************************Refactoring the model
+In models folder > file "user.js"
+- Require mongoose
+- Add schema
+- Add model
+- export the model
+
+********************Refactoring the routes'
+In routes folder > file "user.js"
+- Require express
+we were using app.use before so now we will have to use the isolated router.9
+- const router = express.Router();
+
+router.get("/", async(req, res)=>{
+    const allDBUsers = await User.find({});
+    return res.json(allDBUsers);
+});
+Before it was app.get and /api/users
+
+- export the router
+
+- Import in index.js
+- Inform express that if app uses "/user" in the routes then redirect to the userRouter we just imported
+app.use("/api/user", userRouter);
+
+
+******************************Move mongodb connection into new file "connection.js"
+const mongoose = require("mongoose");
+
+async function connectMongoDB(url){
+   return mongoose.connect(url);
+}
+
+module.exports = {
+    connectMongoDB
+}
+
+-Index.js
+//Connection
+const { connectMongoDB } = require("./connection");
+connectMongoDB('mongodb://127.0.0.1:27017/practice').then(()=>console.log("MongoDB Connected!"));
+
+*********************Refactoring the middleware
+New Folder "middlewares" 
+New file "index.js"
+
+In function provide File name and we will return a function. Using Closures here.
+const fs = require("fs");
+
+function logReqRes(filename){
+    return (req, res, next)=>{
+        fs.appendFile(
+            filename,
+            `${Date.now()}: ${req.ip} ${req.method}: ${req.path}\n`,
+            (err, data) => {
+                next();
+            }
+        )
+    }
+}
+
+module.exports = {
+    logReqRes
+}
+
+- Index.js
+const { logReqRes } = require("./middlewares/index");
+app.use(logReqRes("log.txt"))
+
+
+*****************Refactor the routes
+Controller has to manipulate the Model
+
+In 
+router.get("/", async(req, res)=>{
+    const allDBUsers = await User.find({});
+    return res.json(allDBUsers);
+});
+
+handler => async(req, res)=>{
+    		const allDBUsers = await User.find({});
+    		return res.json(allDBUsers);
+	   }
+
+
+
+New folder "controllers"
+New file "user.js"
+
+const User = require("../models/user");
+
+async function handleGetAllUsers(req, res) {
+    const allDBUsers = await User.find({});
+    return res.json(allDBUsers);
+}
+
+module.exports = {
+    handleGetAllUsers
+}
+
+- in index.js
+Require the controller
+-Replace the handler with the handler function from controller
+router.get("/", handleGetAllUsers);
+
+
+
+
+
+
+
+
+Flow
+1. Connect to MongoDB
+2. Initialize middleware
+3. Initialize routes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
