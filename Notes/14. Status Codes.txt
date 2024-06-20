@@ -1,0 +1,58 @@
+- Response codes indicate if the HTTP request was successfully completed.
+
+1. Informational Response: Start from 100
+2. Successful Response: Start from 200
+3. Redirection Response: Start from 300
+4. Client Error Response: Start from 400
+5. Server Error Response: Start from 500
+
+> Best Practices
+
+- Created: 201
+res.status(201).json({status:"success", id: users.length});
+
+- Don't send anything in return: 204
+
+- Missing data in payload: 400
+if(!body || !body.email){
+        return res.status(400).json({msg:"Email is required"});
+}
+
+
+- Unauthorized: 401
+Login to send request.
+
+- Credit card exhausted: 402
+
+- Forbidden with no permission: 403
+
+- Not found: 404 
+Page not found.
+Should also be for no user found;
+if(!user){
+        return res.status(404).json({msg:"No user found!"});
+}
+
+
+- We are iterating on users and did a typo. so 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

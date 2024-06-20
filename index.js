@@ -45,13 +45,16 @@ app.get("/users", (req, res)=>{
 
 //Rest API
 app.get("/api/users", (req, res)=>{
-    //console.log("Hello from /api/users", req.myUsername);
+    res.setHeader('X-myName', "Shane Redd");
     return res.json(users);
 });
 
 app.route("/api/users/:id").get((req, res)=>{
     const id = Number(req.params.id);
     const user = users.find(user => user.id === id);
+    if(!user){
+        return res.status(404).json({msg:"No user found!"});
+    }
     return res.json(user);
 }).patch((req, res)=>{
     //TODO
@@ -82,10 +85,13 @@ app.route("/api/users/:id").get((req, res)=>{
 
 app.post("/api/users", (req, res)=>{
     const body = req.body;
+    if(!body || !body.email){
+        return res.status(400).json({msg:"Email is required"});
+    }
 
     users.push({...body, id: users.length + 1});
     fs.writeFile("./MOCK_DATA.json", JSON.stringify(users), (err, result)=>{
-        res.json({status:"success", id: users.length});
+        res.status(201).json({status:"success", id: users.length});
     })
 });
 

@@ -1,0 +1,84 @@
+- Example
+Person A wants to send a letter to Person B.
+Puts letter in envelope and sends it via Courier Service. 
+Letter has additional information like From, To, Weight and so on. Actual data is inside the envelope.
+
+Person A: Client.
+Person B: Server.
+Letter: Data.
+Envelope: Request.
+Envelope Information: Headers
+
+Network packets with each Request contains data.
+
+From: IP
+To: IP
+Content Type: JSON Content
+
+> Headers:
+- Meta data of req res. (Data of data)
+- Important information of API req and res. 
+- May contain custom headers.
+- Headers are often created automatically.
+
+> Request Headers
+- User-Agent: Which application is being used to make the Request (Chrome ...)
+- Accept: Which requests are accepted.
+
+> Response Headers
+- X-Powered-By: Express (Added by Express, advertising itself to the client)
+- Content-Type: Application/JSON. (Response will be in JSON)
+- Content-Length: Bytes in the response.
+
+
+> Can make our own Response headers;
+app.get("/api/users", (req, res)=>{
+    res.setHeader('myName', "Shane Redd");
+    return res.json(users);
+});
+
+
+> Can make our own Request headers;
+- Add it in Postman
+
+> Best Practises
+
+- Always add X to custom headers
+res.setHeader('X-myName', "Shane Redd"); 
+
+- Token IDs can also be put in headers.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
