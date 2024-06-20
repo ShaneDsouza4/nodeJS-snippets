@@ -1,99 +1,95 @@
 const express = require("express");
-const fs = require("fs");
-const bodyParser = require('body-parser')
-
 const app = express();
+app.use(express.json()); 
+app.use(express.urlencoded({extended:false}));
 
-//Middleware - Plugin
-//app.use(express.urlencoded({extended:false})); //For x-www-form-urlencoded
-app.use(express.json()); //For raw JSON
+const mongoose = require("mongoose");
 
-app.use((req, res, next) =>{
-    console.log("Hello from Middleware 1");
-    //req.myUsername = "ShaneDsouza4";
-    //return res.json({msg: "Hello from Middleware 1"});
-    next();
-})
+//Connection
+mongoose.connect('mongodb://127.0.0.1:27017/practice')
+.then(()=>console.log("MongoDB connected."))
+.catch(err => console.log("MongoDB Error", err));
 
-app.use((req, res, next) =>{
-    //console.log("Hello from Middleware 2", req.myUsername);
-    //return res.json({msg: "Hello from Middleware 2"});
-    next();
-})
+//Schema
+const userSchema = new mongoose.Schema({
+    firstName:{
+        type: String,
+        required: true
+    },
+    lastName:{
+        type: String,
+        required: false
+    },
+    email:{
+        type: String,
+        required: true,
+        unique: true //Email must be unique is DB
+    },
+    jobTitle:{
+        type: String,
+    },
+    gender:{
+        type: String,
+    }
+}, { timestamps: true });
 
-app.use((req, res, next) =>{
-    fs.appendFile(
-        "log.txt",
-        `${Date.now()}: ${req.ip} ${req.method}: ${req.path}\n`,
-        (err, data) => {
-            next();
-        }
-    )
-})
+//Model
+const User = mongoose.model('user', userSchema);
 
-const users = require("./MOCK_DATA.json");
 
-app.get("/users", (req, res)=>{
+//Create User
+app.post("/api/users", async(req, res)=>{
+    //console.log("Create User API hit!")
+    const body = req.body;
+    //console.log(body)
+    if(!body || !body.email){
+        return res.status(400).json({msg:"Email is required"});
+    }
+
+    const result = await User.create({
+        firstName: body.first_name,
+        lastName:body.last_name,
+        email:body.email,
+        jobTitle:body.job_title,
+        gender: body.gender
+    })
+
+    console.log(result);
+
+    return res.status(201).json({msg:"success"});
+
+});
+
+//Get All Users
+app.get("/users", async(req, res)=>{
+    const allDBUsers = await User.find({});
+    console.log(allDBUsers)
+
     const html = `
         <ul>
-            ${users.map((user)=>`<li>${user.first_name}</li>`).join("")}
+            ${allDBUsers
+                .map((user)=>`<li>${user.firstName} - ${user.email}</li>`)
+                .join("")
+            }
         </ul>
     `
     return res.send(html);
 });
 
-
-//Rest API
-app.get("/api/users", (req, res)=>{
-    res.setHeader('X-myName', "Shane Redd");
-    return res.json(users);
-});
-
-app.route("/api/users/:id").get((req, res)=>{
-    const id = Number(req.params.id);
-    const user = users.find(user => user.id === id);
+app.route("/api/users/:id").get(async(req, res)=>{
+    const user = await User.findById(req.params.id);
     if(!user){
         return res.status(404).json({msg:"No user found!"});
     }
     return res.json(user);
-}).patch((req, res)=>{
-    //TODO
-    const body = req.body;
-    
-    objIndex = users.findIndex(x => x.id == body.id);
-
-    console.log(objIndex);
-    users[objIndex] = body;
-
-    fs.writeFile("./MOCK_DATA.json", JSON.stringify(users), (err, result)=>{
-        res.json({status:"success", id: objIndex});
-    });
-    
-}).delete((req, res)=>{
-    const id = Number(req.params.id);
-    console.log("ID: ", id);
-    
-    objIndex = users.findIndex(x => x.id == id);
-    users.splice(objIndex, 1);
-
-    fs.writeFile("./MOCK_DATA.json", JSON.stringify(users), (err, result)=>{
-        res.json({status:"success", id: objIndex});
-    });
-
+}).patch( async(req, res)=>{
+    const result = await User.findByIdAndUpdate(req.params.id, req.body);
+    return res.status(200).json({msg:"Success!"});
+}).delete(async(req, res)=>{
+    await User.findByIdAndDelete(req.params.id);
+    return res.status(200).json({msg:"Delete Success!"});
 })
 
 
-app.post("/api/users", (req, res)=>{
-    const body = req.body;
-    if(!body || !body.email){
-        return res.status(400).json({msg:"Email is required"});
-    }
-
-    users.push({...body, id: users.length + 1});
-    fs.writeFile("./MOCK_DATA.json", JSON.stringify(users), (err, result)=>{
-        res.status(201).json({status:"success", id: users.length});
-    })
-});
-
-
+//Start Server
 app.listen(8000, ()=>{console.log("Server started!")});
